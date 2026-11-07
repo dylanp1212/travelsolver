@@ -3,8 +3,31 @@ import bfs from './bfs.js';
 import countries from './assets/countries.json' with {type: 'json'};
 
 
+function getflag(code) {
+  const codePoints = code
+    .toUpperCase()
+    .split('')
+    .map(char => 127397 + char.charCodeAt(0));
+  return String.fromCodePoint(...codePoints);
+}
+
 const args = process.argv.slice(2);
+
 function solver () {
+//   console.log(`          ___,
+//      _.-'\` __|__
+//    .'  ,-:\` \\;',\`'-, 
+//   /  .'-;_,;  ':-;_,'.
+//  /  /;   '/    ,  _\`.-\\
+// |  | '\`. (\`     /\` \` \\\`|
+// |  |:.  \`\\\`-.   \\_   / |
+// |  |     (   \`,  .\`\\ ;'|
+//  \\  \\     | .'     \`-'/
+//   \\  \`.   ;/        .'
+//    '._ \`'-._____.-'\`
+//       \`-.____|
+//         _____|_____
+//        /___________\\`)
   console.log();
   if (args.length < 2) {
     console.log('bad arguments');
@@ -53,6 +76,18 @@ function solver () {
     }
   }
 
+  process.stdout.write(getflag(countries[src].code) + '   ->  ' + getflag(countries[end].code));
+  // console.log();
+  if (ignore.length > 0) {
+    process.stdout.write(' ,  ');
+    process.stdout.write(`\x1b[1m\x1b[31mX\x1b[0m `);
+    for (let i = 0; i < ignore.length; i++) {
+      process.stdout.write(getflag(countries[ignore[i]].code) + '  ');
+    }
+    // console.log();
+  }
+  console.log();
+
   let solution = [];
   if (args.includes('-d')) {
     console.log(`solving with \x1b[1mdijkstra's\x1b[0m...`);
@@ -85,7 +120,7 @@ function solver () {
   // }
   // console.log();
   // console.log('END: ' + solution[solution.length - 1]);
-  process.stdout.write(`\x1b[1m\x1b[35m${solution[0]} -> \x1b[0m`)
+  process.stdout.write(`\x1b[1m\x1b[35m${solution[0]} -> \x1b[0m`);
   for (let i = 1; i < solution.length - 1; i++) {
     process.stdout.write(solution[i] + ' -> ');
   }
