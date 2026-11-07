@@ -9,7 +9,7 @@ import adjborders from './assets/adjborders.json' with {type: 'json'};
 // const src = 64;
 // const end = 97;
 
-export default function dijkstras(src, end) {
+export default function dijkstras(src, end, ignore) {
   const dist = new Array(countryborders.length).fill(1000);
   const prev = new Array(countryborders.length).fill(-1);
   const pq = [];
@@ -27,7 +27,7 @@ export default function dijkstras(src, end) {
     // console.log(d + '' + u);
     if (d > dist[u]) continue;
     for (let [w, v] of adjborders[u]) {
-      if (dist[u] + w < dist[v]) {
+      if (dist[u] + w < dist[v] && !ignore.includes(v)) {
         dist[v] = dist[u] + w;
         prev[v] = u;
         pq.push([dist[v], v]);
