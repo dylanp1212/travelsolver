@@ -55,10 +55,10 @@ function solver () {
 
   let solution = [];
   if (args.includes('-d')) {
-    console.log(`solving with dijkstra's`);
+    console.log(`solving with \x1b[1mdijkstra's\x1b[0m...`);
     solution = dijkstras(src, end, ignore);
   } else {
-    console.log(`solving with bfs`);
+    console.log(`solving with \x1b[1mbfs\x1b[0m...`);
     solution = bfs(src, end, ignore);
   }
 
@@ -77,7 +77,20 @@ function solver () {
     console.log('countries do not connect over land borders');
     return;
   }
-  console.log(solution);
+  console.log(`\x1b[2msolution distance:\x1b[0m \x1b[1m\x1b[32m${solution.length - 2}\x1b[0m`);
+  console.log('\x1b[2msolution:\x1b[0m')
+  // console.log('START: ' + solution[0] + ' -> ')
+  // for (let i = 1; i < solution.length - 1; i++) {
+  //   process.stdout.write(solution[i] + ' -> ');
+  // }
+  // console.log();
+  // console.log('END: ' + solution[solution.length - 1]);
+  process.stdout.write(`\x1b[1m\x1b[35m${solution[0]} -> \x1b[0m`)
+  for (let i = 1; i < solution.length - 1; i++) {
+    process.stdout.write(solution[i] + ' -> ');
+  }
+  process.stdout.write(`\x1b[1m\x1b[36m${solution[solution.length - 1]}\x1b[0m`);
+  console.log();
   return;
 }
 
