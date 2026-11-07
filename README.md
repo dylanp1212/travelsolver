@@ -6,6 +6,7 @@ To run it in the terminal use the command
 Optional flags:
   -d to use Dijkstra's algorithm instead of the default BFS
   -i <country to ignore> <second country to ignore> <nth country to ignore> to ignore countries from the path
+  -r to see the path between two random countries
 
 Note: countries use official names (eg. Russian Federation instead of Russia). A list of all countries' names can be found in countries.json.
 For names with spaces, you must wrap in quotes in the command line.
