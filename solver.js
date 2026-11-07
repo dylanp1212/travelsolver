@@ -28,7 +28,35 @@ function solver () {
 //       \`-.____|
 //         _____|_____
 //        /___________\\`)
-  console.log();
+  // console.log();
+  if (args.includes('-r')) {
+    let rsolution = [];
+    while (rsolution.length < 1) {
+      const rsrc = Math.floor(Math.random() * 248) + 1;
+      let rend = Math.floor(Math.random() * 248) + 1;
+      if (rend == rsrc) {
+        while (rend == rsrc) {
+          rend = Math.floor(Math.random() * 248) + 1;
+        }
+      }
+      rsolution = bfs(rsrc, rend, []);
+      if (rsolution.length < 1) {
+        continue;
+      }
+      process.stdout.write(getflag(countries[rsrc].code) + '   ->  ' + getflag(countries[rend].code));
+      console.log();
+      console.log(`solving with \x1b[1mbfs\x1b[0m...`);
+      console.log(`\x1b[2msolution distance:\x1b[0m \x1b[1m\x1b[32m${rsolution.length - 2}\x1b[0m`);
+      console.log('\x1b[2msolution:\x1b[0m')
+      process.stdout.write(`\x1b[1m\x1b[35m${rsolution[0]} -> \x1b[0m`);
+      for (let i = 1; i < rsolution.length - 1; i++) {
+        process.stdout.write(rsolution[i] + ' -> ');
+      }
+      process.stdout.write(`\x1b[1m\x1b[36m${rsolution[rsolution.length - 1]}\x1b[0m`);
+      console.log();
+      return;
+    }
+  }
   if (args.length < 2) {
     console.log('bad arguments');
     console.log('useage: solver.js <start country> <end country>');
@@ -114,12 +142,6 @@ function solver () {
   }
   console.log(`\x1b[2msolution distance:\x1b[0m \x1b[1m\x1b[32m${solution.length - 2}\x1b[0m`);
   console.log('\x1b[2msolution:\x1b[0m')
-  // console.log('START: ' + solution[0] + ' -> ')
-  // for (let i = 1; i < solution.length - 1; i++) {
-  //   process.stdout.write(solution[i] + ' -> ');
-  // }
-  // console.log();
-  // console.log('END: ' + solution[solution.length - 1]);
   process.stdout.write(`\x1b[1m\x1b[35m${solution[0]} -> \x1b[0m`);
   for (let i = 1; i < solution.length - 1; i++) {
     process.stdout.write(solution[i] + ' -> ');
